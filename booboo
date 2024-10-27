@@ -1,0 +1,4 @@
+source 'https://rubygems.org'
+gem 'rails', '~> 6.1'
+gem 'rspec-rails', '~> 5.0.0'
+# Add other gems your project needs
