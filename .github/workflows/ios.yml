@@ -1,0 +1,30 @@
+name: iOS CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Ruby
+      uses: actions/setup-ruby@v1
+      with:
+        ruby-version: 2.7
+
+    - name: Install Bundler
+      run: gem install bundler
+
+    - name: Install CocoaPods
+      run: bundle install && bundle exec pod install --project-directory=ios
+
+    - name: Build
+      run: xcodebuild -workspace ios/uberclone.xcworkspace -scheme uberclone -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 11,OS=14.5' build
